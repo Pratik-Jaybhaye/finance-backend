@@ -1,4 +1,9 @@
 package com.example.financeapp.service;
 
-public class AuthService {
+import com.example.financeapp.dto.request.AuthRequest;
+import com.example.financeapp.dto.response.AuthResponse;
+
+public interface AuthService {
+
+    AuthResponse login(AuthRequest request);
 }

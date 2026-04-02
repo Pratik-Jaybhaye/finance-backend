@@ -12,5 +12,6 @@ public interface RecordService {
     RecordResponse updateRecord(Long id, RecordRequest request);
 
     void deleteRecord(Long id);
+    List<RecordResponse> filterRecords(String category, String type);
     
 } 

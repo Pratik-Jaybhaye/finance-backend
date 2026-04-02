@@ -5,6 +5,7 @@ import com.example.financeapp.dto.response.RecordResponse;
 import com.example.financeapp.entity.FinancialRecord;
 import com.example.financeapp.entity.RecordType;
 import com.example.financeapp.entity.User;
+import com.example.financeapp.exception.ResourceNotFoundException;
 import com.example.financeapp.repository.FinancialRecordRepository;
 import com.example.financeapp.repository.UserRepository;
 
@@ -38,7 +39,7 @@ public class RecordServiceImpl implements RecordService {
         record.setDescription(request.getDescription());
         User user = userRepository.findAll().stream()
         .findFirst()
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
     record.setUser(user);
 

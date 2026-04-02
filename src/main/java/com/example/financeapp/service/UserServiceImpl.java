@@ -7,6 +7,7 @@ import com.example.financeapp.dto.response.UserResponse;
 import com.example.financeapp.entity.Role;
 import com.example.financeapp.entity.Status;
 import com.example.financeapp.entity.User;
+import com.example.financeapp.exception.ResourceNotFoundException;
 import com.example.financeapp.repository.RoleRepository;
 import com.example.financeapp.repository.UserRepository;
 import java.util.List;
@@ -64,7 +65,7 @@ public List<UserResponse> getAllUsers() {
 public UserResponse updateUser(Long id, UserRequest request) {
 
     User user = userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+           .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
     Role role = roleRepository.findById(request.getRoleId())
             .orElseThrow(() -> new RuntimeException("Role not found"));
@@ -83,7 +84,7 @@ public UserResponse updateUser(Long id, UserRequest request) {
 public void deleteUser(Long id) {
 
     User user = userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+           .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
     userRepository.delete(user);
 }

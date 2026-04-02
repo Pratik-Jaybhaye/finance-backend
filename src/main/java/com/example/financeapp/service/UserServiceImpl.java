@@ -4,8 +4,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.financeapp.dto.request.UserRequest;
 import com.example.financeapp.dto.response.UserResponse;
+import com.example.financeapp.entity.Role;
+import com.example.financeapp.entity.Status;
+import com.example.financeapp.entity.User;
 import com.example.financeapp.repository.RoleRepository;
 import com.example.financeapp.repository.UserRepository;
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
    private final UserRepository userRepository;
@@ -43,4 +48,45 @@ public class UserServiceImpl implements UserService {
         res.setStatus(user.getStatus().name());
         return res;
     }
+
+
+    @Override
+public List<UserResponse> getAllUsers() {
+
+    List<User> users = userRepository.findAll();
+
+    return users.stream()
+            .map(this::mapToResponse)
+            .toList();
+}
+
+@Override
+public UserResponse updateUser(Long id, UserRequest request) {
+
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    Role role = roleRepository.findById(request.getRoleId())
+            .orElseThrow(() -> new RuntimeException("Role not found"));
+
+    user.setName(request.getName());
+    user.setEmail(request.getEmail());
+    user.setPassword(request.getPassword());
+    user.setRole(role);
+
+    userRepository.save(user);
+
+    return mapToResponse(user);
+}
+
+@Override
+public void deleteUser(Long id) {
+
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    userRepository.delete(user);
+}
+
+
 }

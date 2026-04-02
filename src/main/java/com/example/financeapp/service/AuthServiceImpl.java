@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.financeapp.dto.request.AuthRequest;
 import com.example.financeapp.dto.response.AuthResponse;
+import com.example.financeapp.entity.User;
 import com.example.financeapp.repository.UserRepository;
 
 @Service
@@ -30,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
                 user.getName(),
                 user.getEmail(),
                 user.getRole().getName().name(),
-                null // token later
+                null 
         );
     }
 

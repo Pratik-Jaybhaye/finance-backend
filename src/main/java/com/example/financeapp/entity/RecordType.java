@@ -4,3 +4,4 @@ public enum RecordType {
     INCOME,
     EXPENSE
 }
+

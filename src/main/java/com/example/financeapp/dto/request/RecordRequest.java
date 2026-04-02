@@ -6,7 +6,7 @@ public class RecordRequest {
     private Double amount;
 
     @NotBlank
-    private String type; 
+    private String type;
 
     @NotBlank
     private String category;
